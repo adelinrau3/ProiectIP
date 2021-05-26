@@ -1,0 +1,377 @@
+<html>
+<head>
+    <title> SmartMed </title>
+    <link rel="icon" href="logo.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-analytics.js"></script>
+    <script src="form.js"></script>
+    <script src="details.js"></script>
+    <script src="alerts.js"></script>
+    <script src="sheet.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <br/> <br/>
+    <div id="login-header">
+        <h1 style="text-align: center;"> Welcome to SmartMed</h1>
+    </div>
+    <div id="loggedin-header">
+        <h1 id="user_doctor" style="text-align: center;"> </h1> 
+    </div>
+   
+    <span id="menu-span">
+        <button onclick="add_patient()">Adaugare pacient</button>
+        <button onclick="view_patient()" id="modify_btn">Modificare, stergere, vizualizare pacient </button>
+        <button onclick="show_alert_page()">Adaugare alerta</button>
+        <button onclick="logout()">Logout</button> </span>
+
+        <span id="menu-span-patient">
+        <button onclick="view_sheet()">Vizualizare fisa</button>
+        <button onclick="recommandation()">Recomandările medicului </button>
+        <button onclick="view_values()">Vizualizare valori</button>
+        <button onclick="logout()">Logout</button> </span>
+
+    <img src="logo.png" alt="SmartMed logo" width="250" height="250" class="center">
+   
+
+<div id="login_div" class="main-div">
+    <h3>LOGIN</h3>
+    <label for="username"> USERNAME </label>
+    <input type="text" name="username" placeholder="ENTER USERNAME..." id="email_field">
+
+    <label for="password"> PASSWORD </label>
+    <input type="password" name="password" placeholder="ENTER PASSWORD..." id="password_field">
+
+    <button id="myBtn" onclick="login()"> Login </button>
+
+    <script>
+        var input = document.getElementById("password_field");
+        input.addEventListener("keyup", function(event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                document.getElementById("myBtn").click();
+            }
+        });
+    </script>
+</div>
+
+<div id="user_doctor_div" class="loggedin-div">
+    <h3 style="text-align: center;">Welcome to control panel!</h3>
+    <p id="user_doctor"></p>
+    <button onclick="add_patient()">Adaugare pacient</button>
+    <button onclick="view_patient()">Modificare, stergere, vizualizare pacient </button>
+    <button onclick="show_alert_page()">Adaugare alerta</button>
+    <button onclick="logout()">Logout</button>
+</div>
+
+
+<div id="user_patient_div" class="loggedin-div">
+    <h3 style="text-align: center;">Welcome to control panel!</h3>
+    <p id="user_patient"></p>
+    <button onclick="view_sheet()">Vizualizare fișă</button>
+    <button onclick="recommandation()">Recomandările medicului</button>
+    <button onclick="view_values()">Vizualizare valori</button>
+    <button onclick="logout()">Logout</button>
+</div>
+
+<div id="doctor_add">
+    <div id="doctor_patient_div" class="main-div">
+        <h3>Adăugare date demografice</h3>
+        <label for="username_patient"> USERNAME </label>
+        <input type="text" name="username_patient" placeholder="INTRODUCETI USERNAME..." id="username_patient_field">
+    
+        <label for="password_patient"> PAROLA </label>
+        <input type="password" name="password_patient" placeholder="INTRODUCETI PAROLA..." id="password_patient_field">
+        
+        <label for="name_patient"> NUME </label>
+        <input type="text" name="uname_patient" placeholder="INTRODUCETI NUMELE..." id="name_patient_field">
+
+        <label for="surname_patient"> PRENUME </label>
+        <input type="text" name="surname_patient" placeholder="INTRODUCETI PRENUMELE..." id="surname_patient_field">
+
+        <label for="cnp_patient"> CNP </label>
+        <input type="text" name="cnp_patient" placeholder="INTRODUCETI CNP-UL..." id="cnp_patient_field">
+
+        <label for="adress_patient">ADRESA</label>
+    
+        <textarea id="adress_patient_field" name="adress_patient" rows="4" cols="50"> INTRODUCETI ADRESA... </textarea>
+
+        <label for="phone_number_patient"> NUMĂR TELEFON </label>
+        <input type="text" name="phone_number_patient" placeholder="INTRODUCETI NUMĂRUL TELEFON..." id="phone_number_field">
+
+        <label for="profession_patient"> PROFESIE </label>
+        <input type="text" name="profession_patient" placeholder="INTRODUCETI PROFESIA..." id="profession_field">
+
+        <label for="job_patient"> LOC DE MUNCĂ </label>
+        <input type="text" name="job_patient" placeholder="INTRODUCETI LOCUL DE MUNCĂ..." id="job_field">
+
+        <h3>Adăugare date medicale</h3>
+
+        <label for="medical_history_patient"> ISTORIC MEDICAL </label>
+        <input type="text" name="medical_history_patient" placeholder="INTRODUCETI ISTORICUL MEDICAL..." id="medical_history_field">
+
+        <label for="allergies_patient"> ALERGII </label>
+        <input type="text" name="allergies_patient" placeholder="INTRODUCETI ALERGIILE..." id="allergies_field">
+
+        <label for="cardio_patient"> CONSULTAȚII CARDIOLOGICE </label>
+        <input type="text" name="cardio_patient" placeholder="INTRODUCETI CONSULTAȚIILE..." id="cardio_field">
+
+        <h3>Adăugare valori normale</h3>
+
+        <label for="puls_min_patient"> Puls </label>
+        <div id="outer">
+            <input style="display: inline-block; width: 49%;" type="text" name="puls_min_patient" placeholder="MIN" id="puls_min_field">
+            <input style="display: inline-block; width: 49%;" type="text" name="puls_max_patient" placeholder="MAX" id="puls_max_field">
+        </div>
+        
+        <label for="temp_min_patient"> Temperatura  </label>
+        <div id="outer">
+            <input style="display: inline-block; width: 49%;" type="text" name="temp_min_patient" placeholder="MIN" id="temp_min_field">
+            <input style="display: inline-block; width: 49%;" type="text" name="temp_max_patient" placeholder="MAX" id="temp_max_field">
+        </div>
+
+        <label for="ecg_min_patient"> ECG </label>
+        <div id="outer">
+            <input style="display: inline-block; width: 49%;" type="text" name="ecg_min_patient" placeholder="MIN" id="ecg_min_field">
+            <input style="display: inline-block; width: 49%;" type="text" name="ecg_max_patient" placeholder="MAX" id="ecg_max_field">
+        </div>
+        
+        <label for="umiditate_min_patient"> Umiditate </label>
+        <div id="outer">
+            <input style="display: inline-block; width: 49%;" type="text" name="umiditate_min_patient" placeholder="MIN" id="umiditate_min_field">
+            <input style="display: inline-block; width: 49%;" type="text" name="umiditate_max_patient" placeholder="MAX" id="umiditate_max_field">
+        </div>
+        
+
+    </div>
+    <div id="outer">
+        <button style="display: inline-block; width: 182px;" class="inner" id="add_button"> Adăugare </button>
+        <button style="display: inline-block; width: 182px" class="inner" onclick="cancel_add()"> Anulare </button>
+    </div>
+</div>
+
+<div id="info_pacient">
+    <div id="table_pacient">
+        <table id="myTable">
+            <tr>
+                <th></th>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>CNP</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </table>
+    </div>
+    <div id="details_pacient">
+        <label for="username_patient"> USERNAME </label>
+        <textarea id="username_patient" > </textarea>
+        
+        <label for="name_patient"> NUME </label>
+        <textarea id="name_patient" > </textarea>
+        
+        <label for="surname_patient"> PRENUME </label>
+        <textarea id="surname_patient"  > </textarea>
+        
+        <label for="cnp_patient"> CNP </label>
+        <textarea id="cnp_patient" > </textarea>
+       
+        <label for="patient"> ADRESA </label>
+        <textarea id="adress_patient"> </textarea>
+        
+        <label for="phone_number_patient"> NUMĂR TELEFON </label>
+        <textarea id="phone_number_patient" > </textarea>
+        
+        <label for="profession_patient"> PROFESIE </label>
+        <textarea id="profession_patient" > </textarea>
+        
+        <label for="job_patient"> LOC DE MUNCĂ </label>
+        <textarea id="job_patient"> </textarea>
+        
+        <label for="medical_history_patient"> ISTORIC MEDICAL </label>
+        <textarea id="medical_history_patient" > </textarea>
+       
+        <label for="allergies_patient"> ALERGII </label>
+        <textarea id="allergies_patient" > </textarea>
+        
+        <label for="cardio_patient"> CONSULTAȚII CARDIOLOGICE </label>
+        <textarea id="cardio_patient" > </textarea>
+
+        <h3>Valori normale</h3>
+
+        <label for="puls_min_patient"> PULS </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="puls_min_patient" > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="puls_max_patient" > </textarea>
+        </div>
+
+        <label for="temperatura_min_patient"> TEMPERATURA </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="temp_min_patient" > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="temp_max_patient" > </textarea>
+        </div>
+
+        <label for="ecg_min_patient"> ECG </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="ecg_min_patient" > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="ecg_max_patient" > </textarea>
+        </div>
+        
+        <label for="umiditate_min_patient"> UMIDITATE </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="umiditate_min_patient" > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="umiditate_max_patient" > </textarea>
+        </div>
+        <br/>
+    </div>
+</div>
+
+<div id="alerts_div">
+    <select name="select_patient" id="patient_select" onchange="show_patient_details()">   
+    </select>
+    <div id="alert_details_patient">
+        <label for="name_patient_alerts"> NUME </label>
+        <textarea style="width: 70%; height: 5%;" id="name_patient_alerts" > </textarea>
+        
+        <label for="surname_patient_alerts"> PRENUME </label>
+        <textarea style="width: 70%; height: 5%;" id="surname_patient_alerts" > </textarea>
+
+        <label for="add_alert_text"> ALERTA </label>
+        <textarea style="width: 70%; height:10%;" id="add_alert_text" > </textarea>
+        <br>
+        <button style="width:70%;" id="add_alert_btn"> Adauga alerta </button>
+    </div> 
+    <br>
+    <div id="patient_table">
+        <table style="width: 45%;" id="table_parameters_patient">
+            <tr>
+                <th>Puls</th>
+                <th>Temperatura</th>
+                <th>Umiditate</th>
+                <th>ECG</th>
+            </tr>
+        </table>   
+    </div>                        
+</div>
+
+<div id="patient_details_sheet">
+    
+        <label for="username_patient_sheet"> USERNAME </label>
+        <textarea id="username_patient_sheet" > </textarea>
+    
+        <label for="name_patient_sheet"> NUME </label>
+        <textarea id="name_patient_sheet" > </textarea>
+        
+        <label for="surname_patient_sheet"> PRENUME </label>
+        <textarea id="surname_patient_sheet"  > </textarea>
+        
+        <label for="cnp_patient_sheet"> CNP </label>
+        <textarea id="cnp_patient_sheet" > </textarea>
+       
+        <label for="patient_sheet"> ADRESA </label>
+        <textarea id="adress_patient_sheet"> </textarea>
+        
+        <label for="phone_number_patient_sheet"> NUMĂR TELEFON </label>
+        <textarea id="phone_number_patient_sheet" > </textarea>
+        
+        <label for="profession_patient_sheet"> PROFESIE </label>
+        <textarea id="profession_patient_sheet" > </textarea>
+        
+        <label for="job_patient_sheet"> LOC DE MUNCĂ </label>
+        <textarea id="job_patient_sheet"> </textarea>
+        
+        <label for="medical_history_patient_sheet"> ISTORIC MEDICAL </label>
+        <textarea id="medical_history_patient_sheet" > </textarea>
+       
+        <label for="allergies_patient_sheet"> ALERGII </label>
+        <textarea id="allergies_patient_sheet" > </textarea>
+        
+        <label for="cardio_patient_sheet"> CONSULTAȚII CARDIOLOGICE </label>
+        <textarea id="cardio_patient_sheet" > </textarea>
+        <br>
+        <h3>Recomandarile medicului</h3>
+        <br>
+        <label for="puls_min_patient_sheet"> PULS </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="puls_min_patient_sheet" > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="puls_max_patient_sheet" > </textarea>
+        </div>
+
+        <label for="temperatura_min_patient_sheet"> TEMPERATURA </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="temp_min_patient_sheet" > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="temp_max_patient_sheet" > </textarea>
+        </div>
+
+        <label for="ecg_min_patient_sheet"> ECG </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="ecg_min_patient_sheet" > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="ecg_max_patient_sheet" > </textarea>
+        </div>
+        
+        <label for="umiditate_min_patient_sheet"> UMIDITATE </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="umiditate_min_patient_sheet" > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="umiditate_max_patient_sheet" > </textarea>
+        </div>
+</div>
+
+<div id="recommandation">
+
+    <label for="profession_patient_rec"> AELERTELE MEDICULUI </label>
+    <textarea style="height: 30%;" id="profession_patient_rec" readonly > </textarea>
+    <br>
+    <h3>Recomandarile medicului</h3>
+    <br>
+    <label for="puls_min_patient_rec"> PULS </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="puls_min_patient_rec" readonly > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="puls_max_patient_rec" readonly  > </textarea>
+        </div>
+
+        <label for="temperatura_min_patient_rec"> TEMPERATURA </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="temp_min_patient_rec" readonly > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="temp_max_patient_rec" readonly > </textarea>
+        </div>
+
+        <label for="ecg_min_patient_rec"> ECG </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="ecg_min_patient_rec" readonly > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="ecg_max_patient_rec" readonly > </textarea>
+        </div>
+        
+        <label for="umiditate_min_patient_rec"> UMIDITATE </label>
+        <div id="outer">
+            <textarea style="display: inline-block; width: 111px;" id="umiditate_min_patient_rec" readonly > </textarea>
+            <textarea style="display: inline-block; width: 111px;" id="umiditate_max_patient_rec" readonly > </textarea>
+        </div>
+</div>
+
+<div id="dinamic_table">
+
+    <table style="width: 45%;" id="table_parameters_sheet">
+        <caption style="font-size: 26px;">Valorile parametrilor</caption>
+        <tr>
+            <th>Puls</th>
+            <th>Temperatura</th>
+            <th>Umiditate</th>
+            <th>ECG</th>
+        </tr>
+
+</div>
+
+<script src="login.js"></script>
+<script src="add.js"></script>
+</body>
+</html>

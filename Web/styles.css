@@ -1,0 +1,185 @@
+body{
+    font-family: 'Nunito', sans-serif;
+    padding: 0px;
+    border: 0px;
+    font-size: 16px;
+    background-color: rgb(194, 255, 233);
+}
+
+input, button{
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+}
+
+.main-div, .loggedin-div{
+     width: 20%;
+     margin: auto;
+     margin-top: 25px;
+     padding: 20px;
+}
+
+.main-div input{
+    border: 1px solid #999;
+    display: block;
+    border-radius: 10px;
+    background-color: #fff;
+    padding:15px;
+    outline:none;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#doctor_add textarea {
+    resize: none;
+    font-family:'Nunito', sans-serif;  
+    font-size: 16px;
+    border: 1px solid #999;
+    display: block;
+    border-radius: 10px;
+    background-color: #fff;
+    padding:15px;
+    outline:none;
+    width: 100%;
+    height: 20%;
+    margin-bottom: 20px;
+}
+
+#details_pacient textarea, #modify_pacient textarea,  #patient_details_sheet textarea, #recommandation textarea {
+    resize: none;
+    font-family:'Nunito', sans-serif;  
+    font-size: 16px;
+    border: 1px solid #999;
+    display: block;
+    border-radius: 10px;
+    background-color: #fff;
+    padding:10px;
+    width: 30%;
+    height: 7%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#alert_details_patient textarea{
+    font-family:'Nunito', sans-serif;  
+    font-size: 16px;
+    border: 1px solid #999;
+    display: block;
+    border-radius: 10px;
+    background-color: #fff;
+    padding:10px;
+    resize: none;
+}
+
+#menu-span, #menu-span-patient{
+  width: 70%;
+  position: relative;
+   margin-left:22%;
+}
+#menu-span button, #menu-span-patient button{
+    background: lightseagreen;
+    color:#fff;
+    padding: 10px;
+    outline: none;
+    width: 20%;
+    border-radius: 10px;
+    border: 1px solid lightseagreen;
+    margin-bottom: 20px;
+    transition : 0.3s;
+
+}
+.main-div button, .loggedin-div button, .inner, #myTable button, #add_alert_btn{
+    background: lightseagreen;
+    color:#fff;
+    padding: 10px;
+    outline: none;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid lightseagreen;
+    display: block;
+    margin-bottom: 20px;
+    transition : 0.3s;
+  
+}
+
+#btn_update{
+    background: lightseagreen;
+    color:#fff;
+    padding: 10px;
+    outline: none;
+    width: 15%;
+    border-radius: 10px;
+    border: 1px solid lightseagreen;
+    display: block;
+    margin-bottom: 20px;
+    transition : 0.3s;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.main-div button:hover,  .loggedin-div button:hover, .inner:hover, #menu-span button:hover, #myTable button:hover, #btn_update:hover, #add_alert_btn:hover, #menu-span-patient button:hover{
+    background: #c5aee5;
+    color: black;
+    border: 1px solid #781d7b;
+}
+
+.main-div input:focus{
+    border: 2px solid gray;
+}
+
+.center, #table_pacient{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+#alert_details_patient {
+    width: 40%;
+    margin-left: 37%;
+}
+
+#myTable, #table_parameters_patient, #table_parameters_sheet{
+    padding: 0;
+    margin: auto;
+    border-collapse: collapse;
+    width: 60%;
+    text-align: center;
+    color: black;
+    border: 1px solid black;
+}
+#table_parameters_patient tr, #table_parameters_sheet tr{ 
+    border: solid;
+    border-width: 1px 0;
+}
+
+#details_pacient, #modify_pacient, #patient_details_sheet, #recommandation  {
+    padding: 0;
+    margin: auto;
+    border-collapse: collapse;
+    width: 60%;
+    text-align: center;
+}
+
+select{
+    background: lightseagreen;
+    color:#fff;
+    padding: 10px;
+    outline: none;
+    width: 15%;
+    border-radius: 10px;
+    border: 1px solid lightseagreen;
+    display: block;
+    margin-bottom: 20px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+select:hover{
+    background: #c5aee5;
+    color: black;
+    border: 1px solid #781d7b;
+}
+
+#outer
+{
+    width:100%;
+    text-align: center;
+}
